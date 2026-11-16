@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Haptic Design Lab Letter — Dongwoon Anatech</title>
+<meta name="description" content="Dongwoon Anatech Haptic Design Lab — HapTune Studio, Piezo Haptic Demo Unit 소개와 사용 가이드">
+<style>
+:root{
+  --amber:#F2A93B; --amtx:#B9791C; --ground:#0A0D12; --ink:#1C2025; --dim:#4A525C;
+  --faint:#98A0AA; --paper:#FBFAF6; --card:#FFFFFF; --line:#E6E0D2;
+  --sans:"Pretendard","Inter","Noto Sans KR","Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Malgun Gothic","Microsoft YaHei",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#EEEAE0;color:var(--ink);font-family:var(--sans);line-height:1.65;word-break:keep-all}
+a{color:inherit}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 64px}
+.letter{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 18px 50px -30px rgba(10,13,18,.45)}
+
+/* masthead */
+.mast{background:var(--ground);color:#fff;padding:28px 36px 34px;position:relative}
+.mast-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-weight:700;letter-spacing:.02em;font-size:15px}
+.brand small{display:block;font-weight:500;font-size:10.5px;letter-spacing:.22em;color:var(--faint);margin-top:2px}
+.langs{display:flex;gap:4px;background:rgba(255,255,255,.07);border-radius:999px;padding:3px}
+.langs button{all:unset;cursor:pointer;font-size:12px;padding:5px 11px;border-radius:999px;color:#C9CED6}
+.langs button[aria-pressed="true"]{background:var(--amber);color:var(--ground);font-weight:700}
+.langs button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.issue{margin-top:34px;font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;color:var(--amber)}
+.mast h1{margin:10px 0 0;font-size:clamp(26px,5.2vw,38px);line-height:1.25;letter-spacing:-.01em}
+.wave{display:block;width:100%;height:46px;margin-top:22px}
+.wave .b{stroke:#51607A}.wave .a{stroke:var(--amber)}
+
+/* body */
+.intro{padding:30px 36px 6px;font-size:16px;color:var(--dim)}
+.intro p{margin:0 0 12px}
+.intro .hi{color:var(--ink);font-weight:600}
+.toc{margin:18px 36px 4px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.toc a{display:flex;gap:10px;align-items:center;text-decoration:none;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:12px 14px;font-size:14px;font-weight:600}
+.toc a span{font-family:var(--mono);color:var(--amtx);font-size:12px}
+.toc a:hover{border-color:var(--amber)}
+
+.sol{margin:30px 36px 0;padding-top:30px;border-top:1px solid var(--line)}
+.kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;color:var(--amtx)}
+.sol h2{margin:6px 0 4px;font-size:clamp(22px,4.4vw,28px);line-height:1.3}
+.sol .tag{margin:0 0 16px;font-size:17px;font-weight:600;color:var(--dim)}
+.photo{border-radius:14px;overflow:hidden;background:var(--ground);border:1px solid var(--line)}
+.photo img{display:block;width:100%;height:auto}
+.cap{font-size:12.5px;color:var(--faint);margin:8px 2px 0}
+.lead{font-size:15.5px;margin:18px 0 6px}
+.feats{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:10px}
+.feats li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 16px 13px 44px;position:relative;font-size:14.5px;color:var(--dim)}
+.feats li::before{content:"";position:absolute;left:17px;top:19px;width:12px;height:12px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 4px rgba(242,169,59,.18)}
+.feats b{display:block;color:var(--ink);font-size:15px;margin-bottom:1px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 0}
+.kpi{background:var(--ground);color:#fff;border-radius:12px;padding:14px 14px 12px}
+.kpi .v{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--amber);line-height:1.2}
+.kpi .k{font-size:13px;font-weight:600;margin-top:4px}
+.kpi .d{font-size:11.5px;color:var(--faint);margin-top:2px;line-height:1.45}
+.kpinote{font-size:12px;color:var(--faint);margin:8px 2px 0}
+
+.ctas{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 0}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border-radius:999px;padding:12px 20px;font-size:14.5px;font-weight:700;border:1.5px solid var(--ink)}
+.btn.primary{background:var(--ink);color:#fff}
+.btn.primary:hover{background:var(--ground)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{border-color:var(--amtx);color:var(--amtx)}
+.files{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.file{display:inline-flex;align-items:center;gap:7px;font-size:13px;text-decoration:none;color:var(--dim);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 11px}
+.file:hover{border-color:var(--amber);color:var(--ink)}
+.file i{font-style:normal;font-family:var(--mono);font-size:10.5px;font-weight:700;color:#fff;background:#C0392B;border-radius:4px;padding:1px 5px}
+.file.dl i{background:var(--ink)}
+
+.sign{margin:36px 36px 0;padding:26px 0 30px;border-top:1px solid var(--line);font-size:15px;color:var(--dim)}
+.sign p{margin:0 0 10px}
+.sign .who{color:var(--ink);font-weight:700;margin-top:16px}
+.foot{background:var(--ground);color:var(--faint);font-size:12px;padding:18px 36px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.foot b{color:#fff;font-weight:600}
+
+@media (max-width:560px){
+  .mast,.intro{padding-left:22px;padding-right:22px}
+  .toc,.sol,.sign{margin-left:22px;margin-right:22px}
+  .toc{grid-template-columns:1fr}
+  .kpis{grid-template-columns:1fr 1fr}
+  .kpis .kpi:last-child{grid-column:span 2}
+  .foot{padding-left:22px;padding-right:22px}
+  .btn{flex:1 1 100%;justify-content:center}
+}
+@media print{body{background:#fff}.langs{display:none}.letter{box-shadow:none;border:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<article class="letter">
+
+  <header class="mast">
+    <div class="mast-top">
+      <div class="brand">Haptic Design Lab<small>DONGWOON ANATECH</small></div>
+      <div class="langs" role="group" aria-label="Language">
+        <button type="button" data-lang="ko">한국어</button>
+        <button type="button" data-lang="en">English</button>
+        <button type="button" data-lang="zh">简体中文</button>
+      </div>
+    </div>
+    <div class="issue" data-t="issue">HAPTIC DESIGN LAB LETTER · 2026.11</div>
+    <h1 data-t="title">손끝의 느낌을,<br>데이터로 설계합니다</h1>
+    <svg class="wave" viewBox="0 0 600 46" preserveAspectRatio="none" aria-hidden="true">
+      <path class="b" fill="none" stroke-width="1.5" opacity=".7" d="M0 23 C20 -6 40 52 60 23 S100 -2 120 23 S160 46 180 23 S220 4 240 23 S280 40 300 23 S340 8 360 23 S400 36 420 23 S460 12 480 23 S520 32 540 23 S580 18 600 23"/>
+      <path class="a" fill="none" stroke-width="2.4" d="M0 23 C20 -6 40 52 60 23 S100 2 120 23 S150 30 170 23 S200 21 230 23 L600 23"/>
+    </svg>
+  </header>
+
+  <section class="intro">
+    <p data-t="hello">안녕하세요, 동운아나텍 Haptic Design Lab 입니다.</p>
+    <p data-t="intro1">같은 칩, 같은 액추에이터라도 기구물이 바뀌면 손끝의 느낌은 달라집니다. Haptic Design Lab 은 그 차이를 감각이 아니라 측정으로 다룹니다.</p>
+    <p class="hi" data-t="intro2">이번 레터에서는 새로 선보이는 두 가지 솔루션을 소개합니다. 각 항목의 ‘자세히 보기’에서 상세 소개와 사용 가이드를 확인하실 수 있습니다.</p>
+  </section>
+
+  <nav class="toc" aria-label="Contents">
+    <a href="#haptune"><span>01</span> HapTune Studio · SAC Board</a>
+    <a href="#piezo"><span>02</span> Piezo Haptic Demo Unit</a>
+  </nav>
+
+  <!-- 01 HapTune Studio -->
+  <section class="sol" id="haptune">
+    <div class="kicker" data-t="h.kicker">01 · HAPTIC AUTO-TUNING SYSTEM</div>
+    <h2>HapTune Studio <span style="color:var(--faint);font-weight:500">+</span> SAC Board</h2>
+    <p class="tag" data-t="h.tag">목표 두 칸, 그리고 1분이면 됩니다</p>
+
+    <figure class="photo" style="margin:0"><img src="assets/img/haptune_gui.jpg" alt="HapTune Studio" width="1600" height="835" loading="lazy"></figure>
+    <p class="cap" data-t="h.cap">HapTune Studio 실제 동작 화면 — 실제 보드에서 29샷을 진행한 결과입니다.</p>
+
+    <p class="lead" data-t="h.lead">원하는 세기(g)와 멈춰야 할 시간(ms)을 넣고 시작을 누릅니다. 사전 점검부터 검증·적용까지 20~30샷, 1분이 걸리지 않습니다.</p>
+
+    <ul class="feats">
+      <li><b data-t="h.f1t">느낌을 먼저 고릅니다</b><span data-t="h.f1d">짧고 또렷하게 또는 묵직하게. 고른 느낌에 맞춰 구동 주파수를 스스로 찾습니다.</span></li>
+      <li><b data-t="h.f2t">모든 샷이 실측입니다</b><span data-t="h.f2d">SAC Board 가 구동과 계측을 하나의 시계로 처리해, 보낸 파형과 측정된 가속도를 같은 시간축에 겹쳐 보여 줍니다.</span></li>
+      <li><b data-t="h.f3t">진동 복사 · 센서 스코프</b><span data-t="h.f3d">다른 기기의 진동을 캡처해 이 액추에이터로 재현하고, 튜닝과 별개로 3축 진동 계측기로도 쓸 수 있습니다.</span></li>
+      <li><b data-t="h.f4t">결과는 바로 양산으로</b><span data-t="h.f4d">결과 리포트(국문·영문)와 C 코드를 그대로 출력합니다. I2C 함수 세 개만 연결하면 고객 MCU 에서 동작합니다.</span></li>
+    </ul>
+
+    <div class="kpis">
+      <div class="kpi"><div class="v">11.1 ms</div><div class="k" data-t="h.k1">멈추는 시간</div><div class="d" data-t="h.k1d">목표 12 ms 달성 · 제동 없이 74 ms</div></div>
+      <div class="kpi"><div class="v">1.56 g</div><div class="k" data-t="h.k2">진동 크기</div><div class="d" data-t="h.k2d">목표 1.5 g 달성</div></div>
+      <div class="kpi"><div class="v">&lt; 1 min</div><div class="k" data-t="h.k3">튜닝 시간</div><div class="d" data-t="h.k3d">사전 점검 → 검증·적용, 20~30샷</div></div>
+    </div>
+    <p class="kpinote" data-t="h.kpinote">평가 지그에 장착한 액추에이터의 실제 튜닝 결과입니다.</p>
+
+    <div class="ctas">
+      <a class="btn primary" href="haptune-studio/" data-href-lang data-t="more">자세히 보기 →</a>
+      <a class="btn ghost" href="https://github.com/magi8051/HDL-main-releases/releases/latest" target="_blank" rel="noopener" data-t="h.dl">설치 파일 다운로드</a>
+    </div>
+    <div class="files">
+      <a class="file" href="haptune-studio/files/HapTune_Studio_User_Guide_KO.pdf" target="_blank" rel="noopener"><i>PDF</i><span data-t="h.pko">사용 설명서 (국문)</span></a>
+      <a class="file" href="haptune-studio/files/HapTune_Studio_User_Guide_EN.pdf" target="_blank" rel="noopener"><i>PDF</i><span data-t="h.pen">User Guide (English)</span></a>
+      <a class="file" href="haptune-studio/files/HapTune_Studio_SAC_Board_Intro_KO.pdf" target="_blank" rel="noopener"><i>PDF</i><span data-t="h.psac">SAC Board 소개 (국문)</span></a>
+    </div>
+  </section>
+
+  <!-- 02 Piezo -->
+  <section class="sol" id="piezo">
+    <div class="kicker" data-t="p.kicker">02 · PIEZO HAPTIC SOLUTION · DW3M120</div>
+    <h2>Piezo Haptic Demo Unit</h2>
+    <p class="tag" data-t="p.tag">평평한 화면 위에, 진짜 버튼의 촉감을</p>
+
+    <figure class="photo" style="margin:0"><img src="assets/img/piezo_device.jpg" alt="Piezo Haptic Demo Unit" width="752" height="406" loading="lazy"></figure>
+    <p class="cap" data-t="p.cap">Piezo Haptic Demo Unit — HVAC 시트 실행 화면</p>
+
+    <p class="lead" data-t="p.lead">‘화면을 누르는 느낌’을 ‘버튼을 누르는 느낌’으로 바꾸는 피에조 햅틱 시연 장비입니다. 모든 촉각 피드백은 동운아나텍의 고전압 피에조 햅틱 드라이버 DW3M120 이 디스플레이 후면의 피에조 필름을 직접 구동해 만들어 냅니다.</p>
+
+    <ul class="feats">
+      <li><b data-t="p.f1t">고전압 피에조 드라이버 DW3M120</b><span data-t="p.f1d">내장 부스트 컨버터로 피에조 필름을 수십 Vpp 로 구동해, 짧고 선명한 클릭 진동을 디스플레이 전면에 그대로 전합니다.</span></li>
+      <li><b data-t="p.f2t">차량용 GUI 시트 2종</b><span data-t="p.f2d">HVAC(공조) 시트는 버튼 클릭감과 다이얼 디텐트를, Drive Mode 시트는 시프트 게이트(P·R·N·D) 체결감과 로터리 디텐트를 재현합니다.</span></li>
+      <li><b data-t="p.f3t">진동 세기 9단계 조절</b><span data-t="p.f3d">각 시트 하단의 HAPTIC POWER 슬라이드로 버튼과 다이얼의 진동 세기를 따로 바꿔 가며 비교할 수 있습니다.</span></li>
+      <li><b data-t="p.f4t">전원만 연결하면 시작</b><span data-t="p.f4d">12V 어댑터와 USB-C 전원을 연결하면 약 30초 뒤 데모 GUI 가 자동으로 실행됩니다. 반드시 동봉된 전원을 사용해 주십시오.</span></li>
+    </ul>
+
+    <div class="ctas">
+      <a class="btn primary" href="piezo-haptic-demo/" data-href-lang data-t="more">자세히 보기 →</a>
+    </div>
+  </section>
+
+  <section class="sign">
+    <p data-t="outro1">제품 문의나 데모 요청은 담당 영업 또는 Haptic Design Lab 으로 연락 주십시오. 기구물을 보내 주시면, 원하는 느낌을 실측 데이터로 설계해 드립니다.</p>
+    <p data-t="outro2">이 페이지는 최신 버전으로 계속 업데이트됩니다. 북마크해 두시면 언제든 최신 자료를 확인하실 수 있습니다.</p>
+    <p class="who">Dongwoon Anatech · Haptic Design Lab</p>
+  </section>
+
+  <footer class="foot">
+    <span><b>Haptic Design Lab</b> · Dongwoon Anatech</span>
+    <span><span data-t="updated">최종 업데이트</span> 2026-11-16</span>
+  </footer>
+</article>
+</div>
+
+<script>
+const PACKS = {
+ko:{
+  issue:"HAPTIC DESIGN LAB LETTER · 2026.11",
+  title:"손끝의 느낌을,<br>데이터로 설계합니다",
+  hello:"안녕하세요, 동운아나텍 Haptic Design Lab 입니다.",
+  intro1:"같은 칩, 같은 액추에이터라도 기구물이 바뀌면 손끝의 느낌은 달라집니다. Haptic Design Lab 은 그 차이를 감각이 아니라 측정으로 다룹니다.",
+  intro2:"이번 레터에서는 새로 선보이는 두 가지 솔루션을 소개합니다. 각 항목의 ‘자세히 보기’에서 상세 소개와 사용 가이드를 확인하실 수 있습니다.",
+  more:"자세히 보기 →", updated:"최종 업데이트",
+  h:{kicker:"01 · HAPTIC AUTO-TUNING SYSTEM", tag:"목표 두 칸, 그리고 1분이면 됩니다",
+     cap:"HapTune Studio 실제 동작 화면 — 실제 보드에서 29샷을 진행한 결과입니다.",
+     lead:"원하는 세기(g)와 멈춰야 할 시간(ms)을 넣고 시작을 누릅니다. 사전 점검부터 검증·적용까지 20~30샷, 1분이 걸리지 않습니다.",
+     f1t:"느낌을 먼저 고릅니다", f1d:"짧고 또렷하게 또는 묵직하게. 고른 느낌에 맞춰 구동 주파수를 스스로 찾습니다.",
+     f2t:"모든 샷이 실측입니다", f2d:"SAC Board 가 구동과 계측을 하나의 시계로 처리해, 보낸 파형과 측정된 가속도를 같은 시간축에 겹쳐 보여 줍니다.",
+     f3t:"진동 복사 · 센서 스코프", f3d:"다른 기기의 진동을 캡처해 이 액추에이터로 재현하고, 튜닝과 별개로 3축 진동 계측기로도 쓸 수 있습니다.",
+     f4t:"결과는 바로 양산으로", f4d:"결과 리포트(국문·영문)와 C 코드를 그대로 출력합니다. I2C 함수 세 개만 연결하면 고객 MCU 에서 동작합니다.",
+     k1:"멈추는 시간", k1d:"목표 12 ms 달성 · 제동 없이 74 ms", k2:"진동 크기", k2d:"목표 1.5 g 달성",
+     k3:"튜닝 시간", k3d:"사전 점검 → 검증·적용, 20~30샷",
+     kpinote:"평가 지그에 장착한 액추에이터의 실제 튜닝 결과입니다.",
+     dl:"설치 파일 다운로드", pko:"사용 설명서 (국문)", pen:"User Guide (English)", psac:"SAC Board 소개 (국문)"},
+  p:{kicker:"02 · PIEZO HAPTIC SOLUTION · DW3M120", tag:"평평한 화면 위에, 진짜 버튼의 촉감을",
+     cap:"Piezo Haptic Demo Unit — HVAC 시트 실행 화면",
+     lead:"‘화면을 누르는 느낌’을 ‘버튼을 누르는 느낌’으로 바꾸는 피에조 햅틱 시연 장비입니다. 모든 촉각 피드백은 동운아나텍의 고전압 피에조 햅틱 드라이버 DW3M120 이 디스플레이 후면의 피에조 필름을 직접 구동해 만들어 냅니다.",
+     f1t:"고전압 피에조 드라이버 DW3M120", f1d:"내장 부스트 컨버터로 피에조 필름을 수십 Vpp 로 구동해, 짧고 선명한 클릭 진동을 디스플레이 전면에 그대로 전합니다.",
+     f2t:"차량용 GUI 시트 2종", f2d:"HVAC(공조) 시트는 버튼 클릭감과 다이얼 디텐트를, Drive Mode 시트는 시프트 게이트(P·R·N·D) 체결감과 로터리 디텐트를 재현합니다.",
+     f3t:"진동 세기 9단계 조절", f3d:"각 시트 하단의 HAPTIC POWER 슬라이드로 버튼과 다이얼의 진동 세기를 따로 바꿔 가며 비교할 수 있습니다.",
+     f4t:"전원만 연결하면 시작", f4d:"12V 어댑터와 USB-C 전원을 연결하면 약 30초 뒤 데모 GUI 가 자동으로 실행됩니다. 반드시 동봉된 전원을 사용해 주십시오."},
+  outro1:"제품 문의나 데모 요청은 담당 영업 또는 Haptic Design Lab 으로 연락 주십시오. 기구물을 보내 주시면, 원하는 느낌을 실측 데이터로 설계해 드립니다.",
+  outro2:"이 페이지는 최신 버전으로 계속 업데이트됩니다. 북마크해 두시면 언제든 최신 자료를 확인하실 수 있습니다."
+},
+en:{
+  issue:"HAPTIC DESIGN LAB LETTER · NOV 2026",
+  title:"Designing the feel<br>under a fingertip, with data",
+  hello:"Hello from the Haptic Design Lab at Dongwoon Anatech.",
+  intro1:"Same chip, same actuator — change the fixture and the feel under a fingertip changes with it. Haptic Design Lab treats that difference as something to measure, not to sense.",
+  intro2:"This letter introduces two new solutions. Open “Learn more” on each to see the full introduction and user guide.",
+  more:"Learn more →", updated:"Last updated",
+  h:{kicker:"01 · HAPTIC AUTO-TUNING SYSTEM", tag:"Two fields, then under a minute",
+     cap:"HapTune Studio in operation — the result of 29 shots on a real board.",
+     lead:"Enter the strength you want in g and the time it must stop in ms, then press start. Pre-check through verification takes 20–30 shots and under a minute.",
+     f1t:"Choose the feel first", f1d:"Sharp and crisp, or heavy and resonant. The tool finds the drive frequency that delivers the feel you picked.",
+     f2t:"Every shot is measured", f2d:"SAC Board drives and captures on a single clock, so the waveform sent and the acceleration measured are drawn on the same time axis.",
+     f3t:"Vibration copy · Sensor scope", f3d:"Capture a vibration from another device and reproduce it on this actuator, or use it on its own as a 3-axis vibration instrument.",
+     f4t:"Straight to mass production", f4d:"Exports a result report (Korean or English) and C code as tuned. Connect three I2C functions and it runs on your MCU.",
+     k1:"Stop time", k1d:"target 12 ms met · 74 ms without braking", k2:"Vibration", k2d:"target 1.5 g met",
+     k3:"Tuning time", k3d:"pre-check → verify & write, 20–30 shots",
+     kpinote:"An actual tuning run on an actuator mounted in the evaluation jig.",
+     dl:"Download installer", pko:"사용 설명서 (Korean)", pen:"User Guide (English)", psac:"SAC Board intro (Korean)"},
+  p:{kicker:"02 · PIEZO HAPTIC SOLUTION · DW3M120", tag:"The feel of a real button, on a flat screen",
+     cap:"Piezo Haptic Demo Unit — HVAC sheet running",
+     lead:"A piezo haptic demonstrator that turns “pressing a screen” into “pressing a button”. Every tactile response is produced by Dongwoon Anatech’s high-voltage piezo haptic driver DW3M120, driving the piezo film behind the display directly.",
+     f1t:"High-voltage piezo driver DW3M120", f1d:"Its built-in boost converter drives the piezo film at tens of Vpp, delivering a short, crisp click across the whole display surface.",
+     f2t:"Two automotive GUI sheets", f2d:"The HVAC sheet recreates button clicks and dial detents; the Drive Mode sheet recreates a P·R·N·D shift gate and rotary detents.",
+     f3t:"9-step haptic strength", f3d:"HAPTIC POWER sliders at the bottom of each sheet let you change button and dial strength separately and compare.",
+     f4t:"Plug in and go", f4d:"Connect the 12 V adapter and USB-C power; the demo GUI starts automatically in about 30 seconds. Use only the supplied power adapters."},
+  outro1:"For product questions or demo requests, please contact your sales representative or the Haptic Design Lab. Send us the housing, and we will design the feel you want with measured data.",
+  outro2:"This page is kept up to date. Bookmark it to always find the latest material."
+},
+zh:{
+  issue:"HAPTIC DESIGN LAB LETTER · 2026.11",
+  title:"指尖上的手感，<br>用数据来设计",
+  hello:"您好，这里是东运科技（Dongwoon Anatech）Haptic Design Lab。",
+  intro1:"同一颗芯片、同一只马达，换一个结构件，指尖上的手感就完全不同。这个差别，我们用实测数据来处理，而不是靠手感去猜。",
+  intro2:"本期简报介绍两款新的解决方案。点击各项目的“查看详情”，即可查看完整介绍与使用指南。",
+  more:"查看详情 →", updated:"最后更新",
+  h:{kicker:"01 · HAPTIC AUTO-TUNING SYSTEM", tag:"填两个目标，不到一分钟",
+     cap:"HapTune Studio 实际运行画面 — 在真实板子上打了 29 次的结果。",
+     lead:"填入想要的强度（g）和需要停下的时间（ms），点击开始。从预检到验证写入，约 20~30 次打点，不到一分钟。",
+     f1t:"先选手感", f1d:"短促清脆，还是厚重沉稳。选定之后，工具自己去找对应的驱动频率。",
+     f2t:"每一次打点都是实测", f2d:"SAC Board 的驱动与采集共用一个时钟，发出去的波形和测回来的加速度画在同一条时间轴上。",
+     f3t:"振感复刻 · 振动示波器", f3d:"把别的设备上的振动采下来，用这只马达还原；也可以脱离调校，单独作为三轴振动测量工具使用。",
+     f4t:"拿到手就能进量产", f4d:"自动输出结果报告（韩文或英文）与 C 代码。接上三个 I2C 函数，就能在你的 MCU 上跑起来。",
+     k1:"收振时间", k1d:"达成 12 ms 目标 · 不加制动为 74 ms", k2:"振动强度", k2d:"达成 1.5 g 目标",
+     k3:"调校时间", k3d:"预检 → 验证·写入，20~30 次打点",
+     kpinote:"以下是装在评估治具上的马达，一次真实调校的结果。",
+     dl:"下载安装程序", pko:"使用说明书（韩文）", pen:"User Guide（英文）", psac:"SAC Board 介绍（韩文）"},
+  p:{kicker:"02 · PIEZO HAPTIC SOLUTION · DW3M120", tag:"在平整的屏幕上，还原真实按键的触感",
+     cap:"Piezo Haptic Demo Unit — HVAC 页面运行画面",
+     lead:"把“按屏幕的感觉”变成“按按键的感觉”的压电触觉演示设备。所有触觉反馈，均由东运科技的高压压电触觉驱动芯片 DW3M120 直接驱动屏幕背面的压电薄膜产生。",
+     f1t:"高压压电驱动芯片 DW3M120", f1d:"内置升压转换器，以数十 Vpp 驱动压电薄膜，把短促清晰的点击振动直接传到整个屏幕表面。",
+     f2t:"两套车载 GUI 页面", f2d:"HVAC（空调）页面还原按键点击感与旋钮段落感；Drive Mode 页面还原 P·R·N·D 换挡卡位感与旋钮段落感。",
+     f3t:"振动强度 9 档可调", f3d:"通过各页面底部的 HAPTIC POWER 滑条，可分别调节按键与旋钮的振动强度并进行对比。",
+     f4t:"接上电源即可开始", f4d:"连接 12V 适配器与 USB-C 电源，约 30 秒后演示 GUI 自动启动。请务必使用随附的电源适配器。"},
+  outro1:"如需产品咨询或申请演示，请联系负责的销售人员或 Haptic Design Lab。把结构件交给我们，我们用实测数据为您设计想要的手感。",
+  outro2:"本页面会持续更新为最新版本。建议加入书签，随时查看最新资料。"
+}};
+const HTMLLANG={ko:"ko",en:"en",zh:"zh-Hans"};
+function pick(o,p){return p.split('.').reduce((a,k)=>a==null?a:a[k],o)}
+function apply(lang){
+  const p=PACKS[lang]; if(!p) return;
+  document.documentElement.lang=HTMLLANG[lang];
+  document.querySelectorAll('[data-t]').forEach(el=>{const v=pick(p,el.getAttribute('data-t')); if(typeof v==='string') el.innerHTML=v;});
+  document.querySelectorAll('[data-href-lang]').forEach(a=>{const base=a.getAttribute('href').split('?')[0]; a.setAttribute('href',base+'?lang='+lang);});
+  document.querySelectorAll('.langs button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===lang)));
+  try{localStorage.setItem('hdl-lang',lang)}catch(e){}
+}
+function initial(){
+  const q=new URLSearchParams(location.search).get('lang'); if(PACKS[q]) return q;
+  let s=null; try{s=localStorage.getItem('hdl-lang')}catch(e){} if(PACKS[s]) return s;
+  const n=(navigator.language||'en').toLowerCase();
+  if(n.startsWith('ko')) return 'ko'; if(n.startsWith('zh')) return 'zh'; return 'en';
+}
+document.querySelectorAll('.langs button').forEach(b=>b.addEventListener('click',()=>apply(b.dataset.lang)));
+apply(initial());
+</script>
+</body>
+</html>
