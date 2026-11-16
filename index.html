@@ -37,10 +37,6 @@ a{color:inherit}
 .intro{padding:30px 36px 6px;font-size:16px;color:var(--dim)}
 .intro p{margin:0 0 12px}
 .intro .hi{color:var(--ink);font-weight:600}
-.toc{margin:18px 36px 4px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.toc a{display:flex;gap:10px;align-items:center;text-decoration:none;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:12px 14px;font-size:14px;font-weight:600}
-.toc a span{font-family:var(--mono);color:var(--amtx);font-size:12px}
-.toc a:hover{border-color:var(--amber)}
 
 .sol{margin:30px 36px 0;padding-top:30px;border-top:1px solid var(--line)}
 .kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;color:var(--amtx)}
@@ -67,11 +63,6 @@ a{color:inherit}
 .btn.primary:hover{background:var(--ground)}
 .btn.ghost{background:transparent;color:var(--ink)}
 .btn.ghost:hover{border-color:var(--amtx);color:var(--amtx)}
-.files{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
-.file{display:inline-flex;align-items:center;gap:7px;font-size:13px;text-decoration:none;color:var(--dim);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 11px}
-.file:hover{border-color:var(--amber);color:var(--ink)}
-.file i{font-style:normal;font-family:var(--mono);font-size:10.5px;font-weight:700;color:#fff;background:#C0392B;border-radius:4px;padding:1px 5px}
-.file.dl i{background:var(--ink)}
 
 .sign{margin:36px 36px 0;padding:26px 0 30px;border-top:1px solid var(--line);font-size:15px;color:var(--dim)}
 .sign p{margin:0 0 10px}
@@ -81,9 +72,7 @@ a{color:inherit}
 
 @media (max-width:560px){
   .mast,.intro{padding-left:22px;padding-right:22px}
-  .toc,.sol,.sign{margin-left:22px;margin-right:22px}
-  .toc{grid-template-columns:1fr}
-  .kpis{grid-template-columns:1fr 1fr}
+      .kpis{grid-template-columns:1fr 1fr}
   .kpis .kpi:last-child{grid-column:span 2}
   .foot{padding-left:22px;padding-right:22px}
   .btn{flex:1 1 100%;justify-content:center}
@@ -118,11 +107,6 @@ a{color:inherit}
     <p class="hi" data-t="intro2">이번 레터에서는 새로 선보이는 두 가지 솔루션을 소개합니다. 각 항목의 ‘자세히 보기’에서 상세 소개와 사용 가이드를 확인하실 수 있습니다.</p>
   </section>
 
-  <nav class="toc" aria-label="Contents">
-    <a href="#haptune"><span>01</span> HapTune Studio · SAC Board</a>
-    <a href="#piezo"><span>02</span> Piezo Haptic Demo Unit</a>
-  </nav>
-
   <!-- 01 HapTune Studio -->
   <section class="sol" id="haptune">
     <div class="kicker" data-t="h.kicker">01 · HAPTIC AUTO-TUNING SYSTEM</div>
@@ -150,12 +134,6 @@ a{color:inherit}
 
     <div class="ctas">
       <a class="btn primary" href="haptune-studio/" data-href-lang data-t="more">자세히 보기 →</a>
-      <a class="btn ghost" href="https://github.com/magi8051/HDL-main-releases/releases/latest" target="_blank" rel="noopener" data-t="h.dl">설치 파일 다운로드</a>
-    </div>
-    <div class="files">
-      <a class="file" href="haptune-studio/files/HapTune_Studio_User_Guide_KO.pdf" target="_blank" rel="noopener"><i>PDF</i><span data-t="h.pko">사용 설명서 (국문)</span></a>
-      <a class="file" href="haptune-studio/files/HapTune_Studio_User_Guide_EN.pdf" target="_blank" rel="noopener"><i>PDF</i><span data-t="h.pen">User Guide (English)</span></a>
-      <a class="file" href="haptune-studio/files/HapTune_Studio_SAC_Board_Intro_KO.pdf" target="_blank" rel="noopener"><i>PDF</i><span data-t="h.psac">SAC Board 소개 (국문)</span></a>
     </div>
   </section>
 
@@ -213,8 +191,7 @@ ko:{
      f4t:"결과는 바로 양산으로", f4d:"결과 리포트(국문·영문)와 C 코드를 그대로 출력합니다. I2C 함수 세 개만 연결하면 고객 MCU 에서 동작합니다.",
      k1:"멈추는 시간", k1d:"목표 12 ms 달성 · 제동 없이 74 ms", k2:"진동 크기", k2d:"목표 1.5 g 달성",
      k3:"튜닝 시간", k3d:"사전 점검 → 검증·적용, 20~30샷",
-     kpinote:"평가 지그에 장착한 액추에이터의 실제 튜닝 결과입니다.",
-     dl:"설치 파일 다운로드", pko:"사용 설명서 (국문)", pen:"User Guide (English)", psac:"SAC Board 소개 (국문)"},
+     kpinote:"평가 지그에 장착한 액추에이터의 실제 튜닝 결과입니다."},
   p:{kicker:"02 · PIEZO HAPTIC SOLUTION · DW3M120", tag:"평평한 화면 위에, 진짜 버튼의 촉감을",
      cap:"Piezo Haptic Demo Unit — HVAC 시트 실행 화면",
      lead:"‘화면을 누르는 느낌’을 ‘버튼을 누르는 느낌’으로 바꾸는 피에조 햅틱 시연 장비입니다. 모든 촉각 피드백은 동운아나텍의 고전압 피에조 햅틱 드라이버 DW3M120 이 디스플레이 후면의 피에조 필름을 직접 구동해 만들어 냅니다.",
@@ -241,8 +218,7 @@ en:{
      f4t:"Straight to mass production", f4d:"Exports a result report (Korean or English) and C code as tuned. Connect three I2C functions and it runs on your MCU.",
      k1:"Stop time", k1d:"target 12 ms met · 74 ms without braking", k2:"Vibration", k2d:"target 1.5 g met",
      k3:"Tuning time", k3d:"pre-check → verify & write, 20–30 shots",
-     kpinote:"An actual tuning run on an actuator mounted in the evaluation jig.",
-     dl:"Download installer", pko:"사용 설명서 (Korean)", pen:"User Guide (English)", psac:"SAC Board intro (Korean)"},
+     kpinote:"An actual tuning run on an actuator mounted in the evaluation jig."},
   p:{kicker:"02 · PIEZO HAPTIC SOLUTION · DW3M120", tag:"The feel of a real button, on a flat screen",
      cap:"Piezo Haptic Demo Unit — HVAC sheet running",
      lead:"A piezo haptic demonstrator that turns “pressing a screen” into “pressing a button”. Every tactile response is produced by Dongwoon Anatech’s high-voltage piezo haptic driver DW3M120, driving the piezo film behind the display directly.",
@@ -269,8 +245,7 @@ zh:{
      f4t:"拿到手就能进量产", f4d:"自动输出结果报告（韩文或英文）与 C 代码。接上三个 I2C 函数，就能在你的 MCU 上跑起来。",
      k1:"收振时间", k1d:"达成 12 ms 目标 · 不加制动为 74 ms", k2:"振动强度", k2d:"达成 1.5 g 目标",
      k3:"调校时间", k3d:"预检 → 验证·写入，20~30 次打点",
-     kpinote:"以下是装在评估治具上的马达，一次真实调校的结果。",
-     dl:"下载安装程序", pko:"使用说明书（韩文）", pen:"User Guide（英文）", psac:"SAC Board 介绍（韩文）"},
+     kpinote:"以下是装在评估治具上的马达，一次真实调校的结果。"},
   p:{kicker:"02 · PIEZO HAPTIC SOLUTION · DW3M120", tag:"在平整的屏幕上，还原真实按键的触感",
      cap:"Piezo Haptic Demo Unit — HVAC 页面运行画面",
      lead:"把“按屏幕的感觉”变成“按按键的感觉”的压电触觉演示设备。所有触觉反馈，均由东运科技的高压压电触觉驱动芯片 DW3M120 直接驱动屏幕背面的压电薄膜产生。",
